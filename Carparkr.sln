@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AD6B591A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carparkr.Domain.Tests", "Carparkr.Domain.Tests\Carparkr.Domain.Tests.csproj", "{245AFEF2-B861-4295-A7F0-26335B31A257}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carparkr.Persistence", "Carparkr.Persistence\Carparkr.Persistence.csproj", "{EA988FDA-D421-4D48-9B8F-BAFDC01E0643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carparkr.Persistence.Tests", "Carparkr.Persistence.Tests\Carparkr.Persistence.Tests.csproj", "{03148758-9B75-4B4F-A925-C4D376BBC51B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,8 +35,17 @@ Global
 		{245AFEF2-B861-4295-A7F0-26335B31A257}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{245AFEF2-B861-4295-A7F0-26335B31A257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{245AFEF2-B861-4295-A7F0-26335B31A257}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA988FDA-D421-4D48-9B8F-BAFDC01E0643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA988FDA-D421-4D48-9B8F-BAFDC01E0643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA988FDA-D421-4D48-9B8F-BAFDC01E0643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA988FDA-D421-4D48-9B8F-BAFDC01E0643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03148758-9B75-4B4F-A925-C4D376BBC51B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03148758-9B75-4B4F-A925-C4D376BBC51B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03148758-9B75-4B4F-A925-C4D376BBC51B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03148758-9B75-4B4F-A925-C4D376BBC51B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{245AFEF2-B861-4295-A7F0-26335B31A257} = {AD6B591A-7C69-4C1B-8C72-413B322A7CF5}
+		{03148758-9B75-4B4F-A925-C4D376BBC51B} = {AD6B591A-7C69-4C1B-8C72-413B322A7CF5}
 	EndGlobalSection
 EndGlobal

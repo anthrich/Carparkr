@@ -1,8 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=26b78128_002D72a1_002D4fac_002Daa18_002D007ced628625/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="It_returns_the_default_of_100_total_spaces" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenGettingSpaceSummary&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenAllocatingASpace&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenExitingAVehicle&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenGettingSpaceSummary&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenAllocatingASpace&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenExitingAVehicle&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::03148758-9B75-4B4F-A925-C4D376BBC51B::net8.0::Carparkr.Persistence.Tests.WhenSavingACarPark&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+    &lt;Project Location="C:\Repos\Carparkr\Carparkr.Persistence.Tests" Presentation="&amp;lt;Carparkr.Persistence.Tests&amp;gt;" /&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

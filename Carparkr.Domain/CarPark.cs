@@ -4,6 +4,6 @@ public class CarPark
 {
     public SpaceSummary GetSpaceSummary()
     {
-        return new SpaceSummary(100, 0);
+        return new SpaceSummary(100, 0, 100);
     }
 }

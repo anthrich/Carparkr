@@ -6,6 +6,7 @@
       &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenAllocatingASpace&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenExitingAVehicle&lt;/TestId&gt;&#xD;
       &lt;TestId&gt;xUnit::03148758-9B75-4B4F-A925-C4D376BBC51B::net8.0::Carparkr.Persistence.Tests.WhenSavingACarPark&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;xUnit::AB9FDB8D-76A1-406E-A616-97734FD0B1C4::net8.0::Carparkr.API.Tests.WhenCallingCarParkEndpoints&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
     &lt;Project Location="C:\Repos\Carparkr\Carparkr.Persistence.Tests" Presentation="&amp;lt;Carparkr.Persistence.Tests&amp;gt;" /&gt;&#xD;
   &lt;/Or&gt;&#xD;

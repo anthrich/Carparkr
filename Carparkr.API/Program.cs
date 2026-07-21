@@ -1,5 +1,6 @@
 using Carparkr.Domain;
 using Carparkr.Persistence;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,10 @@ app.MapGet("/parking", async (ICarParkRepository carParkRepository) =>
         return spaces;
     })
     .WithName("GetParking")
+    .WithOpenApi();
+
+app.MapPost("/parking", () => Task.FromResult(Results.Ok()))
+    .WithName("PostParking")
     .WithOpenApi();
 
 app.Run();

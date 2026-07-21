@@ -24,6 +24,8 @@ public sealed class CarPark
         if (parkedVehicle == default) return new ExitResult(0);
         _parkedVehicles.Remove(parkedVehicle);
         var timeParked = timestamp - parkedVehicle.TimeParked;
-        return new ExitResult((timeParked.Minutes + 1) * 0.1m * ((int)parkedVehicle.Size + 1));
+        var minutesParked = timeParked.Minutes + 1;
+        var sizeExponent = (int)parkedVehicle.Size;
+        return new ExitResult((decimal)(minutesParked * 0.1 * Math.Pow(2, sizeExponent)));
     }
 }

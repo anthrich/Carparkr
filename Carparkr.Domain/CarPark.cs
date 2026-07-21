@@ -17,4 +17,9 @@ public class CarPark
     {
         _allocatedVehicleRegistrations.Add(vehicleRegistration);
     }
+
+    public void ExitVehicle(string vehicleRegistration)
+    {
+        _allocatedVehicleRegistrations.Remove(vehicleRegistration);
+    }
 }

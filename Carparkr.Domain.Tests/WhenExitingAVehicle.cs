@@ -18,4 +18,14 @@ public class WhenExitingAVehicle
         // Assert
         Assert.Equal(0, _carPark.GetSpaceSummary().FullSpaces);
     }
+
+    [Fact]
+    public void It_increments_the_number_of_available_spaces()
+    {
+        // Act
+        _carPark.ExitVehicle("RA73 XRF");
+        
+        // Assert
+        Assert.Equal(100, _carPark.GetSpaceSummary().AvailableSpaces);
+    }
 }

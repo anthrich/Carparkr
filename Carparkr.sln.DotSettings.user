@@ -2,5 +2,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=26b78128_002D72a1_002D4fac_002Daa18_002D007ced628625/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="It_returns_the_default_of_100_total_spaces" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenGettingSpaceSummary&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::245AFEF2-B861-4295-A7F0-26335B31A257::net8.0::Carparkr.Domain.Tests.WhenAllocatingASpace&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

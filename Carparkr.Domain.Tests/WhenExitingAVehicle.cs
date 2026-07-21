@@ -37,8 +37,23 @@ public class WhenExitingAVehicle
     [InlineData(60, 0.20)]
     [InlineData(119, 0.20)]
     [InlineData(120, 0.30)]
+    [InlineData(239, 0.40)]
     [InlineData(299, 0.50)]
     public void It_sets_the_charge_for_up_to_5_min_parked_for_small_cars(int secondsParked, double charge)
+    {
+        // Act
+        var exitResult = _carPark.ExitVehicle("RA73 XRF", _entryDateTime.AddSeconds(secondsParked));
+        
+        // Assert
+        Assert.Equal((decimal)charge, exitResult.Charge);
+    }
+    
+    [Theory]
+    [InlineData(300, 1.60)]
+    [InlineData(600, 3.10)]
+    [InlineData(900, 4.60)]
+    public void It_ups_the_charge_an_additional_pound_every_5_min_parked_for_small_cars(
+        int secondsParked, double charge)
     {
         // Act
         var exitResult = _carPark.ExitVehicle("RA73 XRF", _entryDateTime.AddSeconds(secondsParked));

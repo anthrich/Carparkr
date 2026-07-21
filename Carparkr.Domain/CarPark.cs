@@ -23,9 +23,17 @@ public sealed class CarPark
         var parkedVehicle = _parkedVehicles.FirstOrDefault(v => v.Registration == vehicleRegistration);
         if (parkedVehicle == default) return new ExitResult(0);
         _parkedVehicles.Remove(parkedVehicle);
+        var charge = CalculateCharge(timestamp, parkedVehicle);
+        return new ExitResult(charge);
+    }
+
+    private static decimal CalculateCharge(DateTime timestamp, ParkedVehicle parkedVehicle)
+    {
         var timeParked = timestamp - parkedVehicle.TimeParked;
-        var minutesParked = timeParked.Minutes + 1;
+        var baseMinutesMultiplier = timeParked.Minutes + 1;
         var sizeExponent = (int)parkedVehicle.Size;
-        return new ExitResult((decimal)(minutesParked * 0.1 * Math.Pow(2, sizeExponent)));
+        var baseCharge = (decimal)(baseMinutesMultiplier * 0.1 * Math.Pow(2, sizeExponent));
+        var fiveMinuteCharges = timeParked.Minutes / 5;
+        return baseCharge + fiveMinuteCharges;
     }
 }

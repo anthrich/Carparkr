@@ -78,12 +78,40 @@ public class WhenExitingAVehicle
     }
     
     [Theory]
+    [InlineData(300, 2.20)]
+    [InlineData(600, 4.20)]
+    [InlineData(900, 6.20)]
+    public void It_ups_the_charge_an_additional_pound_every_5_min_parked_for_medium_cars(
+        int secondsParked, double charge)
+    {
+        // Act
+        var exitResult = _carPark.ExitVehicle("RA74 ACB", _entryDateTime.AddSeconds(secondsParked));
+        
+        // Assert
+        Assert.Equal((decimal)charge, exitResult.Charge);
+    }
+    
+    [Theory]
     [InlineData(59, 0.40)]
     [InlineData(60, 0.80)]
     [InlineData(119, 0.80)]
     [InlineData(120, 1.20)]
     [InlineData(299, 2.00)]
     public void It_sets_the_charge_for_up_to_5_min_parked_for_large_cars(int secondsParked, double charge)
+    {
+        // Act
+        var exitResult = _carPark.ExitVehicle("RA75 LRG", _entryDateTime.AddSeconds(secondsParked));
+        
+        // Assert
+        Assert.Equal((decimal)charge, exitResult.Charge);
+    }
+    
+    [Theory]
+    [InlineData(300, 3.40)]
+    [InlineData(600, 6.40)]
+    [InlineData(900, 9.40)]
+    public void It_ups_the_charge_an_additional_pound_every_5_min_parked_for_large_cars(
+        int secondsParked, double charge)
     {
         // Act
         var exitResult = _carPark.ExitVehicle("RA75 LRG", _entryDateTime.AddSeconds(secondsParked));

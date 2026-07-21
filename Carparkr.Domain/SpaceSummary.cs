@@ -1,3 +1,3 @@
 ﻿namespace Carparkr.Domain;
 
-public record SpaceSummary(int TotalSpaces);
+public record SpaceSummary(int TotalSpaces, int FullSpaces);

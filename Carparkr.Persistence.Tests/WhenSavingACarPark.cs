@@ -4,7 +4,7 @@ namespace Carparkr.Persistence.Tests;
 
 public class WhenSavingACarPark
 {
-    private readonly EfCoreCarParkRepository _carparkRepository = new();
+    private readonly EfCoreCarParkRepository _carparkRepository = new(new CarParkContext());
     
     [Fact]
     public async Task It_is_retrievable()

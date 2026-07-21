@@ -13,13 +13,14 @@ public class CarPark
         );
     }
 
-    public void AllocateSpace(string vehicleRegistration)
+    public void AllocateSpace(string vehicleRegistration, DateTime timestamp)
     {
         _allocatedVehicleRegistrations.Add(vehicleRegistration);
     }
 
-    public void ExitVehicle(string vehicleRegistration)
+    public ExitResult ExitVehicle(string vehicleRegistration, DateTime timestamp)
     {
         _allocatedVehicleRegistrations.Remove(vehicleRegistration);
+        return new ExitResult(0.10m);
     }
 }

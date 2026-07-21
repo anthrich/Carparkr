@@ -15,7 +15,7 @@ public sealed class CarPark
 
     public void AllocateSpace(string vehicleRegistration, DateTime timestamp, Size size = default)
     {
-        _parkedVehicles.Add(new ParkedVehicle(vehicleRegistration, timestamp));
+        _parkedVehicles.Add(new ParkedVehicle(vehicleRegistration, timestamp, size));
     }
 
     public ExitResult ExitVehicle(string vehicleRegistration, DateTime timestamp)
@@ -24,6 +24,6 @@ public sealed class CarPark
         if (parkedVehicle == default) return new ExitResult(0);
         _parkedVehicles.Remove(parkedVehicle);
         var timeParked = timestamp - parkedVehicle.TimeParked;
-        return new ExitResult((timeParked.Minutes + 1) * 0.1m);
+        return new ExitResult((timeParked.Minutes + 1) * 0.1m * ((int)parkedVehicle.Size + 1));
     }
 }

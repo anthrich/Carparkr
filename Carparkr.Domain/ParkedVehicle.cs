@@ -1,3 +1,3 @@
 ﻿namespace Carparkr.Domain;
 
-public sealed record ParkedVehicle(string Registration, DateTime TimeParked);
+public sealed record ParkedVehicle(string Registration, DateTime TimeParked, Size Size = default);

@@ -3,11 +3,11 @@
 public class WhenExitingAVehicle
 {
     private readonly CarPark _carPark = new();
-    private DateTime _entryDateTime = new DateTime(2026, 07, 21, 20, 38, 01);
+    private readonly DateTime _entryDateTime = new(2026, 07, 21, 20, 38, 01);
 
     public WhenExitingAVehicle()
     {
-        _carPark.AllocateSpace("RA73 XRF", _entryDateTime);
+        _carPark.AllocateSpace("RA73 XRF", _entryDateTime, Size.Small);
     }
     
     [Fact]
@@ -36,7 +36,7 @@ public class WhenExitingAVehicle
     [InlineData(119, 0.20)]
     [InlineData(120, 0.30)]
     [InlineData(299, 0.50)]
-    public void It_sets_the_charge_for_up_to_5_min_parked(int secondsParked, double charge)
+    public void It_sets_the_charge_for_up_to_5_min_parked_for_small_cars(int secondsParked, double charge)
     {
         // Act
         var exitResult = _carPark.ExitVehicle("RA73 XRF", _entryDateTime.AddSeconds(secondsParked));

@@ -13,7 +13,7 @@ public sealed class CarPark
         );
     }
 
-    public void AllocateSpace(string vehicleRegistration, DateTime timestamp)
+    public void AllocateSpace(string vehicleRegistration, DateTime timestamp, Size size = default)
     {
         _parkedVehicles.Add(new ParkedVehicle(vehicleRegistration, timestamp));
     }

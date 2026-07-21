@@ -1,0 +1,6 @@
+﻿services:
+  carparkr:
+    image: carparkr
+    build:
+      context: .
+      dockerfile: Carparkr/Dockerfile

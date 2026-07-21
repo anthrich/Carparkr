@@ -2,11 +2,15 @@
 
 public class CarPark
 {
-    private List<string> _allocatedVehicleRegistrations = new();
+    private readonly List<string> _allocatedVehicleRegistrations = new(100);
     
     public SpaceSummary GetSpaceSummary()
     {
-        return new SpaceSummary(100, _allocatedVehicleRegistrations.Count, 100);
+        return new SpaceSummary(
+            100,
+            _allocatedVehicleRegistrations.Count,
+            _allocatedVehicleRegistrations.Capacity - _allocatedVehicleRegistrations.Count
+        );
     }
 
     public void AllocateSpace(string vehicleRegistration)

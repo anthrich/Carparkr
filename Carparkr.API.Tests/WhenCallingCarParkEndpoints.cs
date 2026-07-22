@@ -133,6 +133,23 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
         var info = await response.Content.ReadFromJsonAsync<ExitInfo>();
         Assert.Equal(0.40, info!.VehicleCharge);
     }
+    
+    [Fact]
+    public async Task POST_exit_returns_time_in()
+    {
+        // Arrange
+        var parkingBody = GetPostParkingBody("NA74 GGA", 2);
+        var timeIn = DateTime.UtcNow;
+        await _client.PostAsync("/parking", parkingBody);
+        var body = GetPostExitBody("NA74 GGA");
+
+        // Act
+        var response = await factory.CreateClient().PostAsync("/parking/exit", body);
+
+        // Assert
+        var info = await response.Content.ReadFromJsonAsync<ExitInfo>();
+        Assert.Equal(timeIn, info!.TimeIn, TimeSpan.FromSeconds(1));
+    }
 
     private static StringContent GetPostExitBody(string vehicleReg)
     {

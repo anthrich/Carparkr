@@ -10,8 +10,9 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
 {
     private sealed record ParkingSpaces(int AvailableSpaces, int OccupiedSpaces);
     private sealed record ParkingInfo(string VehicleReg, DateTime TimeIn, int SpaceNumber);
+    private sealed record ExitInfo(string VehicleReg, double VehicleCharge, DateTime TimeIn, DateTime TimeOut);
 
-    private HttpClient _client = factory.CreateClient();
+    private readonly HttpClient _client = factory.CreateClient();
 
     [Fact]
     public async Task GET_parking_returns_spaces()
@@ -92,15 +93,37 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
         // Arrange
         var parkingBody = GetPostParkingBody("NA74 GGZ");
         await _client.PostAsync("/parking", parkingBody);
-        var model = new { VehicleReg = "NA74 GGZ" };
-        var content = JsonSerializer.Serialize(model);
-        var body = new StringContent(content, Encoding.UTF8, "application/json");
-        
+        var body = GetPostExitBody("NA74 GGZ");
+
         // Act
         var response = await factory.CreateClient().PostAsync("/parking/exit", body);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+    
+    [Fact]
+    public async Task POST_exit_returns_vehicle_reg()
+    {
+        // Arrange
+        var parkingBody = GetPostParkingBody("NA74 GGZ");
+        await _client.PostAsync("/parking", parkingBody);
+        var body = GetPostExitBody("NA74 GGZ");
+
+        // Act
+        var response = await factory.CreateClient().PostAsync("/parking/exit", body);
+
+        // Assert
+        var info = await response.Content.ReadFromJsonAsync<ExitInfo>();
+        Assert.Equal("NA74 GGZ", info!.VehicleReg);
+    }
+
+    private static StringContent GetPostExitBody(string vehicleReg)
+    {
+        var model = new { VehicleReg = vehicleReg };
+        var content = JsonSerializer.Serialize(model);
+        var body = new StringContent(content, Encoding.UTF8, "application/json");
+        return body;
     }
 
     private async Task FillSpaces(int fullSpaces)

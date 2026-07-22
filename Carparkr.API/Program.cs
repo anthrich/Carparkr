@@ -42,7 +42,7 @@ app.MapPost("/parking", async (PostParkingModel model, ICarParkRepository carPar
     .WithName("PostParking")
     .WithOpenApi();
 
-app.MapPost("/parking/exit", () => Task.FromResult(Results.Ok()))
+app.MapPost("/parking/exit", (PostExitModel model) => new { model.VehicleReg })
     .WithName("PostExit")
     .WithOpenApi();
 

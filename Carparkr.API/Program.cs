@@ -37,7 +37,7 @@ app.MapPost("/parking", async (PostParkingModel model, ICarParkRepository carPar
         var carPark = carParks.First();
         var timeStamp = DateTime.UtcNow;
         var entryResult = carPark.AllocateSpace(model.VehicleReg, timeStamp, model.VehicleType);
-        return new { model.VehicleReg, TimeIn = timeStamp, entryResult.SpaceNumber };
+        return new { model.VehicleReg, TimeIn = timeStamp, entryResult.Value.SpaceNumber };
     })
     .WithName("PostParking")
     .WithOpenApi();

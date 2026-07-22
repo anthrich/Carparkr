@@ -1,4 +1,6 @@
-﻿namespace Carparkr.Domain;
+﻿using FluentResults;
+
+namespace Carparkr.Domain;
 
 public sealed class CarPark
 {
@@ -14,8 +16,9 @@ public sealed class CarPark
         );
     }
 
-    public EntryResult AllocateSpace(string vehicleRegistration, DateTime timestamp, Size size = default)
+    public Result<EntryResult> AllocateSpace(string vehicleRegistration, DateTime timestamp, Size size = default)
     {
+        if (_parkedVehicles.Capacity == _parkedVehicles.Count) return Result.Fail("Car park is full.");
         _parkedVehicles.Add(new ParkedVehicle(vehicleRegistration, timestamp, size));
         return new EntryResult(_parkedVehicles.Count - 1);
     }

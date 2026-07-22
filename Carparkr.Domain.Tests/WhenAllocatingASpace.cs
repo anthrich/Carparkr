@@ -40,6 +40,22 @@ public class WhenAllocatingASpace
         var result = _carPark.AllocateSpace("RA73 XRF", DateTime.UtcNow);
         
         // Assert
-        Assert.Equal(fullSpaces, result.SpaceNumber);
+        Assert.Equal(fullSpaces, result.Value.SpaceNumber);
+    }
+
+    [Fact]
+    public void It_fails_when_spaces_are_full()
+    {
+        // Arrange
+        for (var i = 0; i < 100; i++)
+        {
+            _carPark.AllocateSpace("RO29 NU" + i, DateTime.UtcNow);
+        }
+        
+        // Act
+        var result = _carPark.AllocateSpace("RA73 XRF", DateTime.UtcNow);
+        
+        // Assert
+        Assert.False(result.IsSuccess);
     }
 }

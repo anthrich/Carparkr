@@ -182,7 +182,7 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
         for (var i = 0; i < fullSpaces; i++)
         {
             var fullSpaceBody = GetPostParkingBody("NA74 GG" + i);
-            await factory.CreateClient().PostAsync("/parking", fullSpaceBody);
+            await _client.PostAsync("/parking", fullSpaceBody);
         }
     }
 

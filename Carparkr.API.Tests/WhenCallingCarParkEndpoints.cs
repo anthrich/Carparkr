@@ -117,6 +117,22 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
         var info = await response.Content.ReadFromJsonAsync<ExitInfo>();
         Assert.Equal("NA74 GGZ", info!.VehicleReg);
     }
+    
+    [Fact]
+    public async Task POST_exit_returns_vehicle_charge()
+    {
+        // Arrange
+        var parkingBody = GetPostParkingBody("NA74 GGA", 2);
+        await _client.PostAsync("/parking", parkingBody);
+        var body = GetPostExitBody("NA74 GGA");
+
+        // Act
+        var response = await factory.CreateClient().PostAsync("/parking/exit", body);
+
+        // Assert
+        var info = await response.Content.ReadFromJsonAsync<ExitInfo>();
+        Assert.Equal(0.40, info!.VehicleCharge);
+    }
 
     private static StringContent GetPostExitBody(string vehicleReg)
     {
@@ -135,9 +151,9 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
         }
     }
 
-    private static StringContent GetPostParkingBody(string vehicleReg)
+    private static StringContent GetPostParkingBody(string vehicleReg, int type = 1)
     {
-        var model = new { VehicleReg = vehicleReg, VehicleType = 1 };
+        var model = new { VehicleReg = vehicleReg, VehicleType = type };
         var content = JsonSerializer.Serialize(model);
         return new StringContent(content, Encoding.UTF8, "application/json");
     }

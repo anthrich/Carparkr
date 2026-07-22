@@ -38,7 +38,7 @@ app.MapPost("/parking", async (PostParkingModel model, ICarParkRepository carPar
         var timeStamp = DateTime.UtcNow;
         var entryResult = carPark.AllocateSpace(model.VehicleReg, timeStamp, model.VehicleType);
         return entryResult.IsFailed ? 
-            Results.UnprocessableEntity(entryResult.Errors.First().Message) :
+            Results.UnprocessableEntity(entryResult.Errors[0].Message) :
             Results.Ok(new { model.VehicleReg, TimeIn = timeStamp, entryResult.Value.SpaceNumber });
     })
     .WithName("PostParking")
@@ -50,13 +50,17 @@ app.MapPost("/parking/exit", async (PostExitModel model, ICarParkRepository carP
         var carPark = carParks.First();
         var timeStamp = DateTime.UtcNow;
         var exitResult = carPark.ExitVehicle(model.VehicleReg, timeStamp);
-        return new
-        {
-            model.VehicleReg,
-            VehicleCharge = exitResult.Value.Charge,
-            exitResult.Value.TimeIn,
-            exitResult.Value.TimeOut
-        };
+        return exitResult.IsFailed ?
+            Results.UnprocessableEntity(exitResult.Errors[0].Message) :
+            Results.Ok(
+                new
+                {
+                    model.VehicleReg,
+                    VehicleCharge = exitResult.Value.Charge,
+                    exitResult.Value.TimeIn,
+                    exitResult.Value.TimeOut
+                }
+            );
     })
     .WithName("PostExit")
     .WithOpenApi();

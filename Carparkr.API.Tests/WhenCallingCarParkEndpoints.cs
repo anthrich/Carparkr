@@ -168,6 +168,19 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
         var info = await response.Content.ReadFromJsonAsync<ExitInfo>();
         Assert.Equal(timeOut, info!.TimeOut, TimeSpan.FromSeconds(1));
     }
+    
+    [Fact]
+    public async Task POST_exit_returns_422_on_unknown_reg()
+    {
+        // Arrange
+        var body = GetPostExitBody("PRIVREG1");
+
+        // Act
+        var response = await factory.CreateClient().PostAsync("/parking/exit", body);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.UnprocessableContent, response.StatusCode);
+    }
 
     private static StringContent GetPostExitBody(string vehicleReg)
     {

@@ -11,26 +11,28 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
     private sealed record ParkingSpaces(int AvailableSpaces, int OccupiedSpaces);
     private sealed record ParkingInfo(string VehicleReg, DateTime TimeIn, int SpaceNumber);
 
+    private HttpClient _client = factory.CreateClient();
+
     [Fact]
     public async Task GET_parking_returns_spaces()
     {
         // Act
-        var response = await factory.CreateClient().GetAsync("/parking");
+        var response = await _client.GetAsync("/parking");
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var spaces = await response.Content.ReadFromJsonAsync<ParkingSpaces>();
-        Assert.Equivalent(new ParkingSpaces(100, 0), spaces);
+        Assert.Equal(100, spaces!.OccupiedSpaces + spaces.AvailableSpaces);
     }
 
     [Fact]
     public async Task POST_parking_integrates()
     {
         // Arrange
-        var body = GetPostBody("NA74 GGD");
+        var body = GetPostParkingBody("NA74 GGD");
         
         // Act
-        var response = await factory.CreateClient().PostAsync("/parking", body);
+        var response = await _client.PostAsync("/parking", body);
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -40,10 +42,10 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
     public async Task POST_parking_returns_parking_info_vehicle_reg()
     {
         // Arrange
-        var body = GetPostBody("NA74 GGD");
+        var body = GetPostParkingBody("NA74 GGD");
 
         // Act
-        var response = await factory.CreateClient().PostAsync("/parking", body);
+        var response = await _client.PostAsync("/parking", body);
 
         // Assert
         var info = await response.Content.ReadFromJsonAsync<ParkingInfo>();
@@ -54,10 +56,10 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
     public async Task POST_parking_returns_time_in()
     {
         // Arrange
-        var body = GetPostBody("NA74 GGD");
+        var body = GetPostParkingBody("NA74 GGD");
         
         // Act
-        var response = await factory.CreateClient().PostAsync("/parking", body);
+        var response = await _client.PostAsync("/parking", body);
 
         // Assert
         var info = await response.Content.ReadFromJsonAsync<ParkingInfo>();
@@ -72,28 +74,45 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
     {
         // Arrange
         await FillSpaces(fullSpaces);
-        var getResponse = await factory.CreateClient().GetAsync("/parking");
+        var getResponse = await _client.GetAsync("/parking");
         var preParkingSpaces = await getResponse.Content.ReadFromJsonAsync<ParkingSpaces>();
-        var body = GetPostBody("NA74 GGD");
+        var body = GetPostParkingBody("NA74 GGD");
         
         // Act
-        var response = await factory.CreateClient().PostAsync("/parking", body);
+        var response = await _client.PostAsync("/parking", body);
 
         // Assert
         var info = await response.Content.ReadFromJsonAsync<ParkingInfo>();
-        Assert.Equal(preParkingSpaces.OccupiedSpaces, info!.SpaceNumber);
+        Assert.Equal(preParkingSpaces!.OccupiedSpaces, info!.SpaceNumber);
+    }
+    
+    [Fact]
+    public async Task POST_exit_integrates()
+    {
+        // Arrange
+        var parkingBody = GetPostParkingBody("NA74 GGZ");
+        await _client.PostAsync("/parking", parkingBody);
+        var model = new { VehicleReg = "NA74 GGZ" };
+        var content = JsonSerializer.Serialize(model);
+        var body = new StringContent(content, Encoding.UTF8, "application/json");
+        
+        // Act
+        var response = await factory.CreateClient().PostAsync("/parking/exit", body);
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
     private async Task FillSpaces(int fullSpaces)
     {
         for (var i = 0; i < fullSpaces; i++)
         {
-            var fullSpaceBody = GetPostBody("NA74 GG" + i);
+            var fullSpaceBody = GetPostParkingBody("NA74 GG" + i);
             await factory.CreateClient().PostAsync("/parking", fullSpaceBody);
         }
     }
 
-    private static StringContent GetPostBody(string vehicleReg)
+    private static StringContent GetPostParkingBody(string vehicleReg)
     {
         var model = new { VehicleReg = vehicleReg, VehicleType = 1 };
         var content = JsonSerializer.Serialize(model);

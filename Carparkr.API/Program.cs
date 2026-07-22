@@ -1,8 +1,6 @@
 using Carparkr;
 using Carparkr.Domain;
 using Carparkr.Persistence;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +27,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/parking", ([FromBody]PostParkingModel model) => new { model.VehicleReg, TimeIn = DateTime.UtcNow })
+app.MapPost("/parking", (PostParkingModel model) => new { model.VehicleReg, TimeIn = DateTime.UtcNow })
     .WithName("PostParking")
     .WithOpenApi();
 

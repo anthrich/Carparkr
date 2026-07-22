@@ -1,3 +1,5 @@
-﻿namespace Carparkr;
+﻿using Carparkr.Domain;
 
-public record PostParkingModel(string VehicleReg, int VehicleType);
+namespace Carparkr;
+
+public record PostParkingModel(string VehicleReg, Size VehicleType);

@@ -32,7 +32,8 @@ public class WhenSavingACarPark
         
         // Assert
         var carParks = await _carparkRepository.Get();
-        var exitResult = carParks.First().ExitVehicle("NU76 JJC", DateTime.UtcNow.AddMinutes(1));
+        var persistedCarPark = carParks.First(cp => cp.Id == carPark.Id);
+        var exitResult = persistedCarPark.ExitVehicle("NU76 JJC", DateTime.UtcNow.AddMinutes(1));
         Assert.Equal(0.40m, exitResult.Charge);
     }
 }

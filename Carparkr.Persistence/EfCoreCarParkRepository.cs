@@ -7,7 +7,9 @@ public class EfCoreCarParkRepository(CarParkContext context) : ICarParkRepositor
 {
     public async Task Save(CarPark carPark)
     {
-        context.CarParks.Add(carPark);
+        var existing = await context.CarParks.FindAsync(carPark.Id);
+        if (existing == null) context.CarParks.Add(carPark);
+        else context.Update(carPark);
         await context.SaveChangesAsync();
     }
 

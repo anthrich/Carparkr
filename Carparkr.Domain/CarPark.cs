@@ -2,8 +2,9 @@
 
 public sealed class CarPark
 {
+    public int Id { private set; get; }
     private readonly List<ParkedVehicle> _parkedVehicles = new(100);
-    
+
     public SpaceSummary GetSpaceSummary()
     {
         return new SpaceSummary(

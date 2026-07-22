@@ -42,6 +42,19 @@ public class WhenExitingAVehicle
         Assert.Equal(_entryDateTime, result.TimeIn);
     }
     
+    [Fact]
+    public void It_returns_time_out()
+    {
+        // Arrange
+        var exitTime = _entryDateTime.AddMinutes(10);
+        
+        // Act
+        var result = _carPark.ExitVehicle("RA73 XRF", exitTime);
+        
+        // Assert
+        Assert.Equal(exitTime, result.TimeOut);
+    }
+    
     [Theory]
     [InlineData(59, 0.10)]
     [InlineData(60, 0.20)]

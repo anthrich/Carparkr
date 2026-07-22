@@ -51,7 +51,7 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
 
         // Assert
         var info = await response.Content.ReadFromJsonAsync<ParkingInfo>();
-        Assert.Equal(model.VehicleReg, info.VehicleReg);
+        Assert.Equal(model.VehicleReg, info?.VehicleReg);
     }
     
     [Fact]
@@ -67,6 +67,6 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
 
         // Assert
         var info = await response.Content.ReadFromJsonAsync<ParkingInfo>();
-        Assert.Equal(DateTime.UtcNow, info.TimeIn, TimeSpan.FromSeconds(1));
+        Assert.Equal(DateTime.UtcNow, info!.TimeIn, TimeSpan.FromSeconds(1));
     }
 }

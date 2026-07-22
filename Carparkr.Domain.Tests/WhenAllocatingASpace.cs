@@ -23,4 +23,23 @@ public class WhenAllocatingASpace
         // Assert
         Assert.Equal(99, _carPark.GetSpaceSummary().AvailableSpaces);
     }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(10)]
+    [InlineData(99)]
+    public void It_returns_the_space_number(int fullSpaces)
+    {
+        // Arrange
+        for (var i = 0; i < fullSpaces; i++)
+        {
+            _carPark.AllocateSpace("RO29 NU" + i, DateTime.UtcNow);
+        }
+        
+        // Act
+        var result = _carPark.AllocateSpace("RA73 XRF", DateTime.UtcNow);
+        
+        // Assert
+        Assert.Equal(fullSpaces, result.SpaceNumber);
+    }
 }

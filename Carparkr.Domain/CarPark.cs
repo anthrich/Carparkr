@@ -18,6 +18,8 @@ public sealed class CarPark
 
     public Result<EntryResult> AllocateSpace(string vehicleRegistration, DateTime timestamp, Size size = default)
     {
+        if (_parkedVehicles.Any(pv => pv.Registration == vehicleRegistration))
+            return Result.Fail($"Vehicle {vehicleRegistration} already allocated");
         if (_parkedVehicles.Capacity == _parkedVehicles.Count) return Result.Fail("Car park is full.");
         _parkedVehicles.Add(new ParkedVehicle(vehicleRegistration, timestamp, size));
         return new EntryResult(_parkedVehicles.Count - 1);

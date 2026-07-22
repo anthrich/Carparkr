@@ -58,4 +58,17 @@ public class WhenAllocatingASpace
         // Assert
         Assert.False(result.IsSuccess);
     }
+
+    [Fact]
+    public void It_fails_when_allocating_an_already_allocated_vehicle()
+    {
+        // Arrange
+        _carPark.AllocateSpace("RA73 XRF", DateTime.UtcNow);
+        
+        // Act
+        var result = _carPark.AllocateSpace("RA73 XRF", DateTime.UtcNow);
+        
+        // Assert
+        Assert.False(result.IsSuccess);
+    }
 }

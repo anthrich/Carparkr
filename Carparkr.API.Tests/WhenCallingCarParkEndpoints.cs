@@ -30,7 +30,7 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
     public async Task POST_parking_integrates()
     {
         // Arrange
-        var body = GetPostParkingBody("NA74 GGD");
+        var body = GetPostParkingBody("NA74 GGZ");
         
         // Act
         var response = await _client.PostAsync("/parking", body);
@@ -43,14 +43,14 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
     public async Task POST_parking_returns_parking_info_vehicle_reg()
     {
         // Arrange
-        var body = GetPostParkingBody("NA74 GGD");
+        var body = GetPostParkingBody("NA74 GGX");
 
         // Act
         var response = await _client.PostAsync("/parking", body);
 
         // Assert
         var info = await response.Content.ReadFromJsonAsync<ParkingInfo>();
-        Assert.Equal("NA74 GGD", info?.VehicleReg);
+        Assert.Equal("NA74 GGX", info?.VehicleReg);
     }
 
     [Fact]
@@ -68,16 +68,16 @@ public class WhenCallingCarParkEndpoints(WebApplicationFactory<Program> factory)
     }
     
     [Theory]
-    [InlineData(1)]
-    [InlineData(5)]
-    [InlineData(22)]
-    public async Task POST_parking_returns_space_number(int fullSpaces)
+    [InlineData(1, "NA74 ZGA")]
+    [InlineData(5, "NA74 ZXA")]
+    [InlineData(22, "NA74 XGX")]
+    public async Task POST_parking_returns_space_number(int fullSpaces, string reg)
     {
         // Arrange
         await FillSpaces(fullSpaces);
         var getResponse = await _client.GetAsync("/parking");
         var preParkingSpaces = await getResponse.Content.ReadFromJsonAsync<ParkingSpaces>();
-        var body = GetPostParkingBody("NA74 GGD");
+        var body = GetPostParkingBody(reg);
         
         // Act
         var response = await _client.PostAsync("/parking", body);

@@ -23,10 +23,10 @@ public sealed class CarPark
     public ExitResult ExitVehicle(string vehicleRegistration, DateTime timestamp)
     {
         var parkedVehicle = _parkedVehicles.FirstOrDefault(v => v.Registration == vehicleRegistration);
-        if (parkedVehicle == default) return new ExitResult(0);
+        if (parkedVehicle == default) return new ExitResult(0, default);
         _parkedVehicles.Remove(parkedVehicle);
         var charge = CalculateCharge(timestamp, parkedVehicle);
-        return new ExitResult(charge);
+        return new ExitResult(charge, parkedVehicle.TimeParked);
     }
 
     private static decimal CalculateCharge(DateTime timestamp, ParkedVehicle parkedVehicle)

@@ -32,6 +32,16 @@ public class WhenExitingAVehicle
         Assert.Equal(98, _carPark.GetSpaceSummary().AvailableSpaces);
     }
     
+    [Fact]
+    public void It_returns_time_in()
+    {
+        // Act
+        var result = _carPark.ExitVehicle("RA73 XRF", _entryDateTime);
+        
+        // Assert
+        Assert.Equal(_entryDateTime, result.TimeIn);
+    }
+    
     [Theory]
     [InlineData(59, 0.10)]
     [InlineData(60, 0.20)]

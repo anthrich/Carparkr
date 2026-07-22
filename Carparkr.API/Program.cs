@@ -50,7 +50,13 @@ app.MapPost("/parking/exit", async (PostExitModel model, ICarParkRepository carP
         var carPark = carParks.First();
         var timeStamp = DateTime.UtcNow;
         var exitResult = carPark.ExitVehicle(model.VehicleReg, timeStamp);
-        return new { model.VehicleReg, VehicleCharge = exitResult.Charge, exitResult.TimeIn, exitResult.TimeOut };
+        return new
+        {
+            model.VehicleReg,
+            VehicleCharge = exitResult.Value.Charge,
+            exitResult.Value.TimeIn,
+            exitResult.Value.TimeOut
+        };
     })
     .WithName("PostExit")
     .WithOpenApi();

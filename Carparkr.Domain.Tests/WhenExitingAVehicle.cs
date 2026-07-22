@@ -39,7 +39,7 @@ public class WhenExitingAVehicle
         var result = _carPark.ExitVehicle("RA73 XRF", _entryDateTime);
         
         // Assert
-        Assert.Equal(_entryDateTime, result.TimeIn);
+        Assert.Equal(_entryDateTime, result.Value.TimeIn);
     }
     
     [Fact]
@@ -52,7 +52,17 @@ public class WhenExitingAVehicle
         var result = _carPark.ExitVehicle("RA73 XRF", exitTime);
         
         // Assert
-        Assert.Equal(exitTime, result.TimeOut);
+        Assert.Equal(exitTime, result.Value.TimeOut);
+    }
+
+    [Fact]
+    public void It_fails_when_exiting_an_unallocated_vehicle()
+    {
+        // Act
+        var result = _carPark.ExitVehicle("PRIVREG1", _entryDateTime);
+        
+        // Assert
+        Assert.False(result.IsSuccess);
     }
     
     [Theory]
@@ -68,7 +78,7 @@ public class WhenExitingAVehicle
         var exitResult = _carPark.ExitVehicle("RA73 XRF", _entryDateTime.AddSeconds(secondsParked));
         
         // Assert
-        Assert.Equal((decimal)charge, exitResult.Charge);
+        Assert.Equal((decimal)charge, exitResult.Value.Charge);
     }
     
     [Theory]
@@ -82,7 +92,7 @@ public class WhenExitingAVehicle
         var exitResult = _carPark.ExitVehicle("RA73 XRF", _entryDateTime.AddSeconds(secondsParked));
         
         // Assert
-        Assert.Equal((decimal)charge, exitResult.Charge);
+        Assert.Equal((decimal)charge, exitResult.Value.Charge);
     }
     
     [Theory]
@@ -97,7 +107,7 @@ public class WhenExitingAVehicle
         var exitResult = _carPark.ExitVehicle("RA74 ACB", _entryDateTime.AddSeconds(secondsParked));
         
         // Assert
-        Assert.Equal((decimal)charge, exitResult.Charge);
+        Assert.Equal((decimal)charge, exitResult.Value.Charge);
     }
     
     [Theory]
@@ -111,7 +121,7 @@ public class WhenExitingAVehicle
         var exitResult = _carPark.ExitVehicle("RA74 ACB", _entryDateTime.AddSeconds(secondsParked));
         
         // Assert
-        Assert.Equal((decimal)charge, exitResult.Charge);
+        Assert.Equal((decimal)charge, exitResult.Value.Charge);
     }
     
     [Theory]
@@ -126,7 +136,7 @@ public class WhenExitingAVehicle
         var exitResult = _carPark.ExitVehicle("RA75 LRG", _entryDateTime.AddSeconds(secondsParked));
         
         // Assert
-        Assert.Equal((decimal)charge, exitResult.Charge);
+        Assert.Equal((decimal)charge, exitResult.Value.Charge);
     }
     
     [Theory]
@@ -140,6 +150,6 @@ public class WhenExitingAVehicle
         var exitResult = _carPark.ExitVehicle("RA75 LRG", _entryDateTime.AddSeconds(secondsParked));
         
         // Assert
-        Assert.Equal((decimal)charge, exitResult.Charge);
+        Assert.Equal((decimal)charge, exitResult.Value.Charge);
     }
 }

@@ -25,10 +25,10 @@ public sealed class CarPark
         return new EntryResult(_parkedVehicles.Count - 1);
     }
 
-    public ExitResult ExitVehicle(string vehicleRegistration, DateTime timestamp)
+    public Result<ExitResult> ExitVehicle(string vehicleRegistration, DateTime timestamp)
     {
         var parkedVehicle = _parkedVehicles.FirstOrDefault(v => v.Registration == vehicleRegistration);
-        if (parkedVehicle == default) return new ExitResult(0, default, default);
+        if (parkedVehicle == default) return Result.Fail($"Vehicle {vehicleRegistration} not found");
         _parkedVehicles.Remove(parkedVehicle);
         var charge = CalculateCharge(timestamp, parkedVehicle);
         return new ExitResult(charge, parkedVehicle.TimeParked, timestamp);
